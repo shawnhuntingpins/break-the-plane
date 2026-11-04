@@ -1,0 +1,71 @@
+name: Weekly rollover
+
+# Builds next week's model inputs from nflverse and rolls data.json forward.
+# Runs Tuesday, Wednesday and Thursday mornings (ET): Tuesday is the normal run (after Monday night
+# football); Wednesday and Thursday only matter if nflverse was late -- once the week is built, later
+# runs exit without changing anything. Run it by hand from the Actions tab any time.
+
+on:
+  schedule:
+    - cron: "0 14 * * 2"
+    - cron: "0 14 * * 3"
+    - cron: "0 14 * * 4"
+  workflow_dispatch:
+    inputs:
+      week:
+        description: "Week to build (leave blank to auto-detect)"
+        required: false
+      force:
+        description: "Rebuild even if the week already exists"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+# Same group as the hourly refresh so the two never push at the same time.
+concurrency:
+  group: refresh-live
+  cancel-in-progress: false
+
+jobs:
+  rollover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build next week
+        env:
+          ODDSJAM_KEY: ${{ secrets.ODDSJAM_KEY }}
+          WEEK_INPUT: ${{ inputs.week }}
+          FORCE_INPUT: ${{ inputs.force }}
+        run: |
+          ARGS="--repo ."
+          if [ -n "$WEEK_INPUT" ]; then ARGS="$ARGS --week $WEEK_INPUT"; fi
+          if [ "$FORCE_INPUT" = "true" ]; then ARGS="$ARGS --force"; fi
+          python3 tools/weekly_rollover.py $ARGS
+
+      - name: Commit if changed
+        run: |
+          git config user.name "break-the-plane-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data.json data
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          WK=$(python3 tools/current_week.py)
+          git commit -m "Weekly rollover: Week $WK"
+          for attempt in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            git pull --rebase -X theirs origin main
+          done
+          echo "Push failed after 5 attempts."
+          exit 1
