@@ -52,6 +52,9 @@ jobs:
           if [ "$FORCE_INPUT" = "true" ]; then ARGS="$ARGS --force"; fi
           python3 tools/weekly_rollover.py $ARGS
 
+      - name: Add red-zone and goal-line usage
+        run: python3 tools/build_redzone.py --repo .
+
       - name: Commit if changed
         run: |
           git config user.name "break-the-plane-bot"

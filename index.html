@@ -752,6 +752,7 @@ function detail(p){
       (p.target_share!=null?bar('Target share',pct(p.target_share),p.target_share,C.teal):'')+
       (p.rush_share!=null?bar('Rush share',pct(p.rush_share),p.rush_share,C.turf):'')+
       (p.rz_share!=null?bar('Red-zone share (L4)',pct(p.rz_share),p.rz_share,C.gold):'')+
+      (p.gl_share!=null&&p.gl_share>0?bar('Goal-line share (L4)',pct(p.gl_share),p.gl_share,C.volt):'')+
     '</div></div>';
   var envHtml = p.lambda_team==null ? '' :
     '<div class="rcard"><div class="dlbl">Game Environment</div><div class="envgrid">'+
