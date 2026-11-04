@@ -42,6 +42,12 @@ jobs:
         id: week
         run: echo "week=$(python3 tools/current_week.py --repo .)" >> "$GITHUB_OUTPUT"
 
+      - name: Update injuries and role bumps
+        continue-on-error: true
+        env:
+          NEWS_FEED_URL: ${{ secrets.NEWS_FEED_URL }}
+        run: python3 tools/build_injuries.py --repo . --week ${{ steps.week.outputs.week }}
+
       - name: Run live refresh
         env:
           ODDSJAM_KEY: ${{ secrets.ODDSJAM_KEY }}
