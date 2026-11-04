@@ -1,15 +1,13 @@
 team,gsis_id,player_name,pos_rank
-ARI,00-0033119,Jacoby Brissett,1
-ARI,00-0035289,Gardner Minshew II,2
-ARI,00-0041561,Carson Beck,3
+ARI,00-0035289,Gardner Minshew II,1
+ARI,00-0041561,Carson Beck,2
+ARI,00-0033119,Jacoby Brissett,3
 ATL,00-0039917,Michael Penix Jr.,1
 ATL,00-0036212,Tua Tagovailoa,2
 ATL,00-0027973,Andy Dalton,3
-ATL,00-0041194,Jack Strand,4
-BAL,00-0034796,Lamar Jackson,1
-BAL,00-0035993,Tyler Huntley,2
-BAL,00-0040981,Joe Fagnano,3
-BAL,00-0037327,Skylar Thompson,4
+BAL,00-0035993,Tyler Huntley,1
+BAL,00-0040981,Joe Fagnano,2
+BAL,00-0039577,Kedon Slovis,3
 BUF,00-0034857,Josh Allen,1
 BUF,00-0034577,Kyle Allen,2
 CAR,00-0039150,Bryce Young,1
@@ -23,7 +21,6 @@ CIN,00-0026158,Joe Flacco,2
 CLE,00-0033537,Deshaun Watson,1
 CLE,00-0040668,Shedeur Sanders,2
 CLE,00-0040704,Dillon Gabriel,3
-CLE,00-0041092,Taylen Green,4
 DAL,00-0033077,Dak Prescott,1
 DAL,00-0037077,Sam Howell,2
 DEN,00-0039732,Bo Nix,1
@@ -47,7 +44,6 @@ KC,00-0040906,Garrett Nussmeier,3
 LA,00-0026498,Matthew Stafford,1
 LA,00-0039107,Stetson Bennett IV,2
 LA,00-0041568,Ty Simpson,3
-LA,00-0041414,Matthew Caldwell,4
 LAC,00-0036355,Justin Herbert,1
 LAC,00-0040464,DJ Uiagalelei,2
 LAC,00-0037012,Trey Lance,3
@@ -68,17 +64,14 @@ NO,00-0037013,Zach Wilson,3
 NYG,00-0039923,J.J. McCarthy,1
 NYG,00-0031503,Jameis Winston,2
 NYG,00-0038998,Jake Haener,3
-NYG,00-0040691,Jaxson Dart,4
 NYJ,00-0030565,Geno Smith,1
 NYJ,00-0041056,Cade Klubnik,2
 PHI,00-0038400,Tanner McKee,1
 PHI,00-0039398,Joe Milton III,2
 PHI,00-0040891,Cole Payton,3
-PHI,00-0036389,Jalen Hurts,4
 PIT,00-0023459,Aaron Rodgers,1
 PIT,00-0034771,Mason Rudolph,2
 PIT,00-0040203,Will Howard,3
-PIT,00-0041565,Drew Allar,4
 SEA,00-0034869,Sam Darnold,1
 SEA,00-0035704,Drew Lock,2
 SEA,00-0040673,Jalen Milroe,3
