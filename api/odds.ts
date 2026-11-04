@@ -93,12 +93,14 @@ export default async function (req: Request): Promise<Response> {
     {
       price: number;
       book: string;
+      link?: string;
       consensus?: number;
       n?: number;
-      books?: { book: string; price: number }[];
+      books?: { book: string; price: number; link?: string }[];
     }
   > = {};
   const perBook: Record<string, Record<string, number>> = {}; // player → book → best price at that book
+  const linkBook: Record<string, Record<string, string>> = {}; // player → book → deep link for that best price
   let oddsSeen = 0, firstRaw: string | null = null;
   for (let i = 0; i < fixtures.length; i += 5) {
     const fixtureBatch = fixtures.slice(i, i + 5);
@@ -145,11 +147,23 @@ export default async function (req: Request): Promise<Response> {
               " ",
             ).trim();
           const book = String(o.sportsbook || "");
+          // OpticOdds returns a per-bet deep link (desktop / ios / android). Use
+          // the desktop https URL (it works as a universal link on phones too)
+          // and drop any link that still has an unfilled <STATE>/<COUNTRY>
+          // placeholder -- a guessed state would send people to a dead page, so
+          // the page falls back to the book's homepage instead.
+          const rawLink = String(o.deep_link?.desktop || "");
+          const link = /^https:\/\//.test(rawLink) && !/<[A-Za-z_]+>/.test(rawLink)
+            ? rawLink
+            : "";
           if (!players[k] || price > players[k].price) {
             players[k] = { price, book };
           }
           const pb = perBook[k] = perBook[k] || {};
-          if (pb[book] == null || price > pb[book]) pb[book] = price;
+          if (pb[book] == null || price > pb[book]) {
+            pb[book] = price;
+            (linkBook[k] = linkBook[k] || {})[book] = link;
+          }
         }
       }
     }
@@ -166,7 +180,12 @@ export default async function (req: Request): Promise<Response> {
     }
     players[k].books = Object.entries(perBook[k] || {}).map((
       [book, price],
-    ) => ({ book, price }));
+    ) => {
+      const link = linkBook[k]?.[book];
+      return link ? { book, price, link } : { book, price };
+    });
+    const bestLink = linkBook[k]?.[players[k].book];
+    if (bestLink) players[k].link = bestLink;
   }
   if (debug) return new Response(firstRaw || "{}", { headers: cors });
   const body = JSON.stringify({

@@ -322,6 +322,24 @@ var FILTER_GROUPS = [
 // are still pending the sportsbook logo/link code Wallace has from Home Run
 // Props; this list only ever grows to match whatever books actually appear
 // in the odds feed, never a fixed "every major book" roster.
+// Affiliate offer URLs (bet.rotowire.com). These win over everything else for
+// the books RotoWire has an affiliate deal with. Keyed lowercase; see bookHref().
+var AFFILIATE_URL = {
+  'polymarket': 'https://bet.rotowire.com/polymarket/offer/95336',
+  'kalshi':     'https://bet.rotowire.com/kalshi/offer/92978',
+  'novig':      'https://bet.rotowire.com/novig/offer/99401',
+  'fanduel':    'https://bet.rotowire.com/fanduel/offer/12454',
+  'betmgm':     'https://bet.rotowire.com/betmgm/offer/12198',
+  'draftkings': 'https://bet.rotowire.com/draftkings/offer/38530',
+  'bet365':     'https://bet.rotowire.com/bet365/offer/38825',
+  'fanatics':   'https://bet.rotowire.com/fanatics/offer/81482'
+};
+// Link priority for any book: affiliate offer URL -> per-bet deep link from the
+// odds feed (link) -> the book's plain homepage -> none (no fabricated links).
+function bookHref(book, deepLink){
+  if(!book) return null;
+  return AFFILIATE_URL[String(book).toLowerCase()] || deepLink || BOOK_URL[book] || null;
+}
 var BOOK_URL = {
   'DraftKings': 'https://sportsbook.draftkings.com',
   'FanDuel': 'https://sportsbook.fanduel.com',
@@ -655,7 +673,7 @@ function detail(p){
         var books = (p.books||[]).slice().sort(function(a,b){return (b.price||-9999)-(a.price||-9999);});
         var booksHtml = books.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">'+
           books.map(function(b){
-            var url = BOOK_URL[b.book];
+            var url = bookHref(b.book, b.link);
             // Favorite vs. longshot color cue -- American odds aren't intuitive to
             // skim at a glance even for regular bettors, so a quick visual split
             // (shorter price = safer/likelier, big plus price = longshot) helps
@@ -670,7 +688,7 @@ function detail(p){
         // comment: this feed gives a price+book, not a per-bet deep link) using
         // the best-priced book actually matched for this player. Never rendered
         // for a book we don't have a real URL for -- no fabricated link.
-        var ctaUrl = p.market_book ? BOOK_URL[p.market_book] : null;
+        var ctaUrl = p.market_book ? bookHref(p.market_book, p.market_link) : null;
         var ctaHtml = ctaUrl ? '<a href="'+ctaUrl+'" target="_blank" rel="noopener" class="betcta">'+bookLogoImg(p.market_book,18)+'Bet '+esc(p.market_book)+' '+americanFmt(p.market_price)+' →</a>' : '';
         return '<div class="rcard"><div class="dlbl">Market Read · Anytime TD ('+p.market_n_books+' book'+(p.market_n_books===1?'':'s')+')</div>'+
           '<div class="mktgrid">'+
@@ -1110,6 +1128,7 @@ function applyLiveOdds(payload){
     var p = byName[k], o = payload.players[k];
     if(!p || o.consensus==null) return;
     p.has_market_odds = true;
+    if(o.price!=null && o.book){ p.market_price = o.price; p.market_book = o.book; p.market_link = o.link || null; }
     p.market_consensus = o.consensus;
     p.market_n_books = o.n;
     p.books = o.books || [];
@@ -1126,6 +1145,41 @@ function fetchLiveOdds(){
     if(applyLiveOdds(payload)) update();
   }).catch(function(e){ /* stay on whatever market data was baked in at build time */ });
 }
+// Live player news -- same-origin /api/news (proxies RotoWire's NFLNews XML
+// feed, newest item per player keyed by RotoWire player id, which is the
+// number at the end of each card's rotowireUrl). A fresh feed item replaces
+// whatever news was baked into data.json; if the feed has nothing for a player
+// and the baked-in news is more than NEWS_MAX_AGE_DAYS old, it is cleared so
+// the card falls back to the plain "Latest news & player page" link instead
+// of showing week-old news as if it were current.
+var NEWS_MAX_AGE_DAYS = 7;
+function rwId(p){ var m = /-(\d+)\/?$/.exec(p.rotowireUrl||''); return m ? m[1] : null; }
+function applyLiveNews(payload){
+  if(!payload || !payload.players) return false;
+  var now = Date.now(), maxAge = NEWS_MAX_AGE_DAYS*86400000, changed = false;
+  DATA.players.forEach(function(p){
+    var id = rwId(p), n = id ? payload.players[id] : null;
+    if(n && n.ts && now - n.ts <= maxAge){
+      if(p.newsHeadline!==n.headline || p.newsExcerpt!==n.notes){ changed = true; }
+      p.newsHeadline = n.headline; p.newsDate = n.date; p.newsExcerpt = n.notes;
+    } else if(p.newsHeadline){
+      var t = Date.parse(p.newsDate||'');
+      if(!isNaN(t) && now - t > maxAge){ p.newsHeadline = null; p.newsDate = null; p.newsExcerpt = null; changed = true; }
+    }
+  });
+  return changed;
+}
+function fetchLiveNews(){
+  fetch('/api/news', {cache:'no-store'}).then(function(r){
+    if(!r.ok) throw new Error('news http '+r.status);
+    return r.json();
+  }).then(function(payload){
+    if(applyLiveNews(payload)) update();
+  }).catch(function(e){ /* keep whatever news is already on the cards */ });
+}
+fetchLiveNews();
+setInterval(fetchLiveNews, 10*60*1000);
+
 fetchLiveOdds();
 setInterval(fetchLiveOdds, 3*60*1000); // matches api/odds.ts's own 3-minute cache window
 </script>
