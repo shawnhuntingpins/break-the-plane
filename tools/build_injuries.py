@@ -15,9 +15,23 @@ import argparse, json, os, re, sys, urllib.request
 import numpy as np, pandas as pd
 
 BUMP_FRAC = 0.125
+RB_BUMPS = True  # set False to give role bumps to WR/TE only (RB fit is weaker: see README)
 OUT_STATUS = ("OUT", "IR", "IR-R", "PUP", "NFI", "RESERVE", "SUSPEND")
 SKILL = {"RB", "WR", "TE"}  # QBs excluded, as in the original Week 8 file
 TEAM_FIX = {"ARZ": "ARI", "LA": "LA", "LAR": "LA", "JAX": "JAC", "WSH": "WAS"}
+
+
+DEPTH_URL = "https://github.com/nflverse/nflverse-data/releases/download/depth_charts/depth_charts_2026.csv"
+
+
+def fetch_depth():
+    try:
+        req = urllib.request.Request(DEPTH_URL, headers={"User-Agent": "break-the-plane-weekly/1.0"})
+        import io
+        return pd.read_csv(io.BytesIO(urllib.request.urlopen(req, timeout=120).read()), low_memory=False)
+    except Exception as e:
+        print(f"depth chart unavailable ({e}); ranking by usage instead")
+        return None
 
 
 def fetch(url=None):
@@ -59,12 +73,34 @@ def sidelined(feed, players, slate=None):
     return f
 
 
-def bumps(out, slate):
+def bumps(out, slate, depth=None):
     """out: sidelined rows with gsis_id; slate: slate_players_raw with pos_rank / shares"""
     s = slate.copy()
+    derived = "pos_rank" not in s.columns
+    if derived:
+        # Weekly rollover slates carry no depth-chart rank: use nflverse's depth chart (latest snapshot), and fall back to
+        # ranking by real usage (L4 share, then prior) for anyone the depth chart does not list (e.g. players on IR).
+        s["_k1"] = np.where(s.position == "RB", s.L4_rush_share, s.L4_target_share)
+        s["_k2"] = np.where(s.position == "RB", s.mean_rush_share, s.mean_target_share)
+        s = s.sort_values(["_k1", "_k2"], ascending=False)
+        s["_usage_rank"] = s.groupby(["team", "position"]).cumcount() + 1
+        s["pos_rank"] = np.nan
+        if depth is not None:
+            dd = depth[depth.dt == depth.groupby("team").dt.transform("max")]
+            dd = dd[dd.pos_abb.isin(["WR", "TE", "RB"])].drop_duplicates(["gsis_id", "pos_abb"])
+            s = s.drop(columns="pos_rank").merge(dd[["gsis_id", "pos_abb", "pos_rank"]].rename(columns={"pos_abb": "position"}),
+                                                 on=["gsis_id", "position"], how="left")
+        s["pos_rank"] = s.pos_rank.fillna(s._usage_rank)
     s["is_out"] = s.gsis_id.isin(set(out.gsis_id.dropna()))
+    if derived:
+        # The original file only bumped for sidelined depth players (WR/TE rank 5+, RB rank 3+); starters who are out
+        # are already out of the usage window, so keep to that scope when ranks are approximated.
+        core = ((s.position.isin(["WR", "TE"])) & (s.pos_rank < 5)) | ((s.position == "RB") & (s.pos_rank < 3))
+        s["is_out_bump"] = s.is_out & ~core
+    else:
+        s["is_out_bump"] = s.is_out
     rows = []
-    for (team, pos), grp in s[s.is_out & s.position.isin(["WR", "TE", "RB"])].groupby(["team", "position"]):
+    for (team, pos), grp in s[s.is_out_bump & s.position.isin(["WR", "TE", "RB"] if RB_BUMPS else ["WR", "TE"])].groupby(["team", "position"]):
         share_col, prior_col, l4_col, bump_col = (("L4_rush_share", "mean_rush_share", "L4_rush_share", "rush_share_bump")
                                                   if pos == "RB" else
                                                   ("L4_target_share", "mean_target_share", "L4_target_share", "target_share_bump"))
@@ -104,6 +140,6 @@ if __name__ == "__main__":
     sl = sl[sl.gsis_id.notna()]
     sl_out = pd.DataFrame(dict(team=sl.team, gsis_id=sl.gsis_id, name=sl.name, pos_abb=sl.pos, injury=sl.injury, status=sl.status_out))
     sl_out.to_csv(f"{repo}/data/injury_sidelined_matched_2026wk{W}.csv", index=False)
-    b = bumps(sl, slate)
+    b = bumps(sl, slate, fetch_depth() if "pos_rank" not in slate.columns else None)
     b.to_csv(f"{repo}/data/injury_role_bumps_2026wk{W}.csv", index=False)
     print(f"Week {W}: {len(sl_out)} sidelined skill players, {len(b)} role bumps.")
