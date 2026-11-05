@@ -56,6 +56,10 @@ jobs:
           BTP_SITE: ${{ github.workspace }}
         run: python3 refresh_live.py --week ${{ steps.week.outputs.week }}
 
+      - name: Update score breakdown
+        continue-on-error: true
+        run: python3 tools/build_score_breakdown.py --repo .
+
       - name: Commit data.json if changed
         run: |
           git config user.name "break-the-plane-bot"
