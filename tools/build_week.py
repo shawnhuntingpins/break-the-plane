@@ -101,7 +101,7 @@ def build(W, data_dir, nfl_dir, out_dir, prev_week, depth_asof=None, log=print):
     pl = wk[wk.position.isin(["QB", "RB", "WR", "TE", "FB"])]  # nflverse tags fullbacks "FB"
     tt = wk.groupby(["team", "week"])[["carries", "targets"]].sum().reset_index()
     pri_cols = ["mean_targets", "mean_carries", "mean_target_share", "mean_rush_share"]
-    prev_pri = prev.drop_duplicates("gsis_id").set_index("gsis_id")[pri_cols + ["prior_rank", "pos_rank"]]
+    prev_pri = prev.drop_duplicates("gsis_id").set_index("gsis_id")[pri_cols + [c for c in ["prior_rank", "pos_rank"] if c in prev.columns]]
     fallback = prev[prev.confidence == "rookie"].groupby("position")[pri_cols].median()
 
     out = []
