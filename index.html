@@ -6,9 +6,10 @@
 <link rel="apple-touch-icon" sizes="180x180" href="brand/apple-touch-icon.png">
 <style>
 :root{
-  --bg:#000D1A; --card:#001428; --border:#04203C; --border2:#0B3054;
-  --red:#F22E45; --turf:#00E657; --ketchup:#FF4537; --teal:#00D4AA; --gold:#F5A623; --volt:#BAED00;
-  --n2:#fff; --n3:#A9BDD2; --n4:#7B94AF; --n5:#4F6E8F; --n6:#2A4E74;
+  color-scheme:light;
+  --bg:#FFFFFF; --card:#F3F5F8; --border:#E4E9EF; --border2:#D3DBE4; --ink:#0B1F36;
+  --red:#E0263D; --turf:#00873D; --ketchup:#D6332A; --teal:#00806A; --gold:#B36B00; --volt:#5C7A00;
+  --n2:#0B1F36; --n3:#3E5671; --n4:#5F7690; --n5:#8396AB; --n6:#C9D3DE;
   --font-display:'Integral CF','Arial Black',sans-serif;
   --font-body:'Cosmica',system-ui,-apple-system,'Segoe UI',sans-serif;
   --font-data:ui-monospace,Menlo,'SF Mono',monospace;
@@ -16,8 +17,8 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);color:var(--n2);font-family:var(--font-body);min-height:100%}
 body{padding:22px 14px 60px}
-a{color:#F87C8D}
-a:hover{color:#F55368}
+a{color:#D91F3A}
+a:hover{color:#B8152C}
 button{font-family:inherit}
 :focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 
@@ -25,7 +26,7 @@ button{font-family:inherit}
 .shell{background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--border);line-height:1.4}
 
 /* provenance banner */
-.provenance{background:linear-gradient(90deg,rgba(245,166,35,.14),rgba(245,166,35,.03));border:1px solid rgba(245,166,35,.4);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#F0D9A8;line-height:1.55}
+.provenance{background:linear-gradient(90deg,rgba(245,166,35,.14),rgba(245,166,35,.03));border:1px solid rgba(245,166,35,.4);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#6B4A00;line-height:1.55}
 .provenance b{color:var(--gold)}
 
 /* header */
@@ -36,16 +37,16 @@ button{font-family:inherit}
 .wordmark b{font-family:var(--font-display);font-style:italic;font-size:19px;letter-spacing:.01em;color:var(--n2)}
 .badges{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .badge{font-family:var(--font-data);font-size:11px;letter-spacing:.05em;padding:3px 9px;border-radius:5px;white-space:nowrap}
-.badge.demo{color:var(--turf);background:rgba(0,230,87,.12);border:1px solid rgba(0,230,87,.4)}
-.badge.week{color:#F87C8D;background:rgba(242,46,69,.12);border:1px solid rgba(168,0,33,.6);border-radius:999px}
+.badge.demo{color:var(--turf);background:rgba(0,135,61,.09);border:1px solid rgba(0,135,61,.35)}
+.badge.week{color:#C21F37;background:rgba(224,38,61,.07);border:1px solid rgba(224,38,61,.35);border-radius:999px}
 
 /* hero */
-.hero{position:relative;overflow:hidden;padding:18px 18px 16px;background:radial-gradient(130% 150% at 100% 0%,rgba(242,46,69,.22),#001428 55%,#000 110%);border-bottom:1px solid var(--border)}
-.eyebrow{font-family:var(--font-data);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#FF7A8A;margin-bottom:10px}
+.hero{position:relative;overflow:hidden;padding:18px 18px 16px;background:radial-gradient(130% 150% at 100% 0%,rgba(224,38,61,.10),#fff 60%);border-bottom:1px solid var(--border)}
+.eyebrow{font-family:var(--font-data);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#D91F3A;margin-bottom:10px}
 .hero-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.avatar{border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:linear-gradient(165deg,#2A4E74,#001428);border:2px solid #4F6E8F}
-.avatar span{font-family:var(--font-display);color:#fff;opacity:.85}
-.hero-name{font-family:var(--font-display);font-size:clamp(21px,4.4vw,30px);text-transform:uppercase;line-height:.95;color:#fff;letter-spacing:.01em;text-wrap:balance}
+.avatar{border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:linear-gradient(165deg,#E3EAF2,#CBD7E4);border:2px solid #B7C4D3}
+.avatar span{font-family:var(--font-display);color:var(--ink);opacity:.85}
+.hero-name{font-family:var(--font-display);font-size:clamp(21px,4.4vw,30px);text-transform:uppercase;line-height:.95;color:var(--ink);letter-spacing:.01em;text-wrap:balance}
 .chip-team{display:inline-flex;align-items:center;justify-content:center;gap:4px;border-radius:6px;font-family:var(--font-data);font-weight:700;font-size:11px;padding:3px 7px 3px 5px;background:var(--border);border:1px solid var(--n6);color:var(--n3)}
 .chip-team img{border-radius:3px;flex-shrink:0}
 .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11.5px;color:var(--n3);font-family:var(--font-data)}
@@ -57,7 +58,7 @@ button{font-family:inherit}
 
 /* controls */
 .controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 16px 4px}
-.seg{display:inline-flex;background:#001428;border:1px solid var(--border2);border-radius:7px;padding:2px;gap:2px}
+.seg{display:inline-flex;background:#fff;border:1px solid var(--border2);border-radius:7px;padding:2px;gap:2px}
 .seg button{padding:5px 11px;border-radius:5px;border:none;cursor:pointer;font-weight:600;font-size:11.5px;background:transparent;color:var(--n4);transition:all .15s;white-space:nowrap}
 .seg button.on{background:var(--red);color:#fff}
 .sortlbl{font-family:var(--font-data);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n4)}
@@ -65,7 +66,7 @@ button{font-family:inherit}
 
 /* game picker */
 .gamepickwrap{position:relative}
-.gamepick-panel{position:absolute;top:calc(100% + 6px);left:0;z-index:20;display:flex;flex-direction:column;gap:3px;background:#001428;border:1px solid var(--border2);border-radius:9px;padding:6px;width:max-content;max-width:min(320px,80vw);max-height:60vh;overflow-y:auto;box-shadow:0 12px 28px rgba(0,0,0,.45)}
+.gamepick-panel{position:absolute;top:calc(100% + 6px);left:0;z-index:20;display:flex;flex-direction:column;gap:3px;background:#fff;border:1px solid var(--border2);border-radius:9px;padding:6px;width:max-content;max-width:min(320px,80vw);max-height:60vh;overflow-y:auto;box-shadow:0 12px 28px rgba(11,31,54,.16)}
 .gamepick-row{display:flex;align-items:center;gap:6px;padding:6px 9px;border-radius:6px;border:none;background:transparent;color:var(--n3);cursor:pointer;font-family:var(--font-data);font-size:11.5px;font-weight:600;text-align:left;white-space:nowrap;width:100%}
 .gamepick-row:hover{background:var(--border)}
 .gamepick-row.on{background:var(--red);color:#fff}
@@ -73,22 +74,22 @@ button{font-family:inherit}
 
 /* filter chip bar */
 .filterbar{display:flex;flex-wrap:wrap;gap:6px;padding:2px 16px 12px;border-bottom:1px solid var(--border)}
-.fchip{font-family:var(--font-data);font-size:11px;font-weight:600;letter-spacing:.02em;padding:5px 10px;border-radius:999px;border:1px solid var(--border2);background:#001428;color:var(--n4);cursor:pointer;white-space:nowrap;transition:all .15s}
+.fchip{font-family:var(--font-data);font-size:11px;font-weight:600;letter-spacing:.02em;padding:5px 10px;border-radius:999px;border:1px solid var(--border2);background:#fff;color:var(--n4);cursor:pointer;white-space:nowrap;transition:all .15s}
 .fchip:hover{border-color:var(--n5);color:var(--n3)}
 .fchip.on{background:var(--red);border-color:var(--red);color:#fff}
 .fchip.watch{margin-left:auto}
-.fchip.watch.on{background:var(--gold);border-color:var(--gold);color:#001428}
+.fchip.watch.on{background:var(--gold);border-color:var(--gold);color:#fff}
 
 /* list / cards */
 .list{padding:10px 12px 4px}
-.pcard{position:relative;background:#001428;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden;transition:border-color .2s}
+.pcard{position:relative;background:#fff;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden;transition:border-color .2s}
 .pcard:hover{border-color:var(--border2)}
 .pcard.open{border-color:#2A4E74}
 .chead{display:flex;align-items:center;gap:12px;padding:11px 13px;cursor:pointer;width:100%;background:none;border:none;text-align:left;color:inherit}
 .rank{font-family:var(--font-display);font-size:13px;color:var(--n4);width:22px;text-align:center;flex-shrink:0}
 .score{font-family:var(--font-display);font-size:20px;width:54px;text-align:center;flex-shrink:0;line-height:1}
 .score small{display:block;font-family:var(--font-data);font-size:9.5px;letter-spacing:.05em;color:var(--n4);margin-top:3px;font-weight:400}
-.pname{font-weight:700;font-size:14.5px;color:#fff;letter-spacing:-.01em}
+.pname{font-weight:700;font-size:14.5px;color:var(--ink);letter-spacing:-.01em}
 .sub{font-size:11px;color:var(--n4);font-family:var(--font-data);margin-top:2px}
 .right{margin-left:auto;text-align:right;flex-shrink:0}
 .hit{font-family:var(--font-data);font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px;flex-shrink:0;white-space:nowrap}
@@ -98,7 +99,7 @@ button{font-family:inherit}
 .sb-seg{height:100%}
 
 /* watchlist star */
-.starbtn{width:26px;height:26px;border-radius:50%;border:1px solid var(--border2);background:rgba(0,20,40,.85);color:var(--n5);font-size:14px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:all .15s;flex-shrink:0}
+.starbtn{width:26px;height:26px;border-radius:50%;border:1px solid var(--border2);background:rgba(255,255,255,.95);color:var(--n5);font-size:14px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:all .15s;flex-shrink:0}
 .starbtn:hover{border-color:var(--gold);color:var(--gold)}
 .starbtn.on{color:var(--gold);border-color:var(--gold);background:rgba(245,166,35,.16)}
 .starbtn.abs{position:absolute;top:9px;right:9px;z-index:5}
@@ -113,36 +114,36 @@ button{font-family:inherit}
 /* research cards -- ported from the Claude Design canvas's player-detail mockup:
    each research section gets its own dark tile (bg) on the lighter shell (card)
    so sections read as distinct modules instead of a loose stack of rows. */
-.rcard{background:var(--bg);border:1px solid var(--border2);border-radius:14px;padding:14px 15px 15px}
+.rcard{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:14px 15px 15px}
 .rcard .dlbl{margin-bottom:10px}
 .rcard+.rcard{margin-top:0}
 .envgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.envgrid>div{background:#000D1A;border:1px solid var(--n6);border-radius:8px;padding:9px 11px}
-.envgrid b{font-family:var(--font-display);font-size:16px;font-weight:400;display:block;margin-top:2px;color:#fff}
+.envgrid>div{background:#fff;border:1px solid var(--n6);border-radius:8px;padding:9px 11px}
+.envgrid b{font-family:var(--font-display);font-size:16px;font-weight:400;display:block;margin-top:2px;color:var(--ink)}
 .envgrid i{font-style:normal;font-family:var(--font-data);font-size:11px;color:var(--n4);display:block;margin-top:2px}
 .mktgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.mktgrid b{font-family:var(--font-display);font-weight:400;font-size:21px;color:#fff;display:block}
+.mktgrid b{font-family:var(--font-display);font-weight:400;font-size:21px;color:var(--ink);display:block}
 .mktgrid span{font-size:11px;color:var(--n3);margin-top:2px;display:block}
 .calib-box{border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:12px;border:1px solid}
-.ctx{font-size:11.5px;color:#CFDCEA;line-height:1.55;padding:9px 12px;border-radius:8px;background:rgba(242,46,69,.08);border:1px solid rgba(168,0,33,.55)}
+.ctx{font-size:11.5px;color:#3E5671;line-height:1.55;padding:9px 12px;border-radius:8px;background:rgba(224,38,61,.06);border:1px solid rgba(224,38,61,.28)}
 .due-note{font-size:11px;color:var(--n4);line-height:1.5}
-.watchbtn{justify-self:start;font-family:var(--font-data);font-size:11.5px;font-weight:600;padding:8px 16px;border-radius:999px;border:1px solid var(--border2);background:#000D1A;color:var(--n3);cursor:pointer;transition:all .15s}
+.watchbtn{justify-self:start;font-family:var(--font-data);font-size:11.5px;font-weight:600;padding:8px 16px;border-radius:999px;border:1px solid var(--border2);background:#fff;color:var(--n3);cursor:pointer;transition:all .15s}
 .watchbtn:hover{border-color:var(--gold);color:var(--gold)}
 .watchbtn.on{background:rgba(245,166,35,.14);border-color:var(--gold);color:var(--gold)}
 
 /* table */
-.tablewrap{margin:10px 12px 4px;background:#001428;border:1px solid var(--border2);border-radius:10px;overflow-x:auto}
+.tablewrap{margin:10px 12px 4px;background:#fff;border:1px solid var(--border2);border-radius:10px;overflow-x:auto}
 table.ptable{width:100%;border-collapse:collapse;min-width:720px}
 .ptable th{padding:9px 10px;text-align:left;font-family:var(--font-data);font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--n4);background:var(--border);border-bottom:1px solid var(--border2);white-space:nowrap}
 .ptable td{padding:8px 10px;border-bottom:1px solid var(--border);font-size:12px;color:var(--n3);white-space:nowrap}
 .ptable tr.prow{cursor:pointer}
-.ptable tr.prow:hover td{background:rgba(255,255,255,.03)}
+.ptable tr.prow:hover td{background:rgba(11,31,54,.045)}
 
 /* by-game */
-.gamecard{background:#001428;border:1px solid var(--border2);border-radius:10px;margin:0 12px 10px;overflow:hidden}
-.gamehead{display:flex;align-items:center;gap:9px;padding:10px 13px;background:linear-gradient(90deg,rgba(242,46,69,.10),#001428);border-bottom:1px solid var(--border);flex-wrap:wrap;font-family:var(--font-data);font-size:11.5px;color:var(--n3)}
+.gamecard{background:#fff;border:1px solid var(--border2);border-radius:10px;margin:0 12px 10px;overflow:hidden}
+.gamehead{display:flex;align-items:center;gap:9px;padding:10px 13px;background:linear-gradient(90deg,rgba(242,46,69,.10),#fff);border-bottom:1px solid var(--border);flex-wrap:wrap;font-family:var(--font-data);font-size:11.5px;color:var(--n3)}
 .gamerow{display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer;border-radius:8px;width:100%;background:none;border:none;text-align:left;color:inherit}
-.gamerow:hover{background:rgba(255,255,255,.03)}
+.gamerow:hover{background:rgba(11,31,54,.045)}
 .gamerow-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 .foot{padding:12px 16px 14px;font-family:var(--font-data);font-size:10.5px;letter-spacing:.03em;color:var(--n5);text-align:center;line-height:1.6}
@@ -150,16 +151,16 @@ table.ptable{width:100%;border-collapse:collapse;min-width:720px}
 .empty{padding:40px 20px;text-align:center;color:var(--n5);font-size:13px}
 
 /* legend / onboarding banner */
-.legend-banner{display:flex;align-items:flex-start;gap:10px;padding:9px 16px;font-size:11.5px;color:var(--n3);background:rgba(0,212,170,.06);border-bottom:1px solid var(--border);line-height:1.5}
-.legend-banner b{color:#fff}
+.legend-banner{display:flex;align-items:flex-start;gap:10px;padding:9px 16px;font-size:11.5px;color:var(--n3);background:rgba(0,128,106,.06);border-bottom:1px solid var(--border);line-height:1.5}
+.legend-banner b{color:var(--ink)}
 .legend-text{flex:1 1 auto;min-width:0}
 .legend-dismiss{margin-left:auto;flex-shrink:0;font-family:var(--font-data);font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid var(--border2);background:transparent;color:var(--n4);cursor:pointer;white-space:nowrap}
 .legend-dismiss:hover{color:var(--n3);border-color:var(--n5)}
 
 /* storyline banner */
-.storyline{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:9px 16px;font-size:12.5px;color:var(--n3);border-bottom:1px solid var(--border);background:rgba(186,237,0,.05)}
-.storytag{font-family:var(--font-data);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--volt);background:rgba(186,237,0,.14);border:1px solid rgba(186,237,0,.4);padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0}
-.storyname{font-weight:700;color:#fff}
+.storyline{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:9px 16px;font-size:12.5px;color:var(--n3);border-bottom:1px solid var(--border);background:rgba(92,122,0,.06)}
+.storytag{font-family:var(--font-data);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--volt);background:rgba(92,122,0,.10);border:1px solid rgba(92,122,0,.35);padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+.storyname{font-weight:700;color:var(--ink)}
 .storynote{color:var(--n3)}
 
 /* sticky controls */
@@ -167,7 +168,7 @@ table.ptable{width:100%;border-collapse:collapse;min-width:720px}
 
 /* search box */
 .searchwrap{position:relative;flex:1 1 150px;min-width:120px}
-.searchbox{width:100%;background:#001428;border:1px solid var(--border2);border-radius:7px;padding:6px 10px 6px 28px;font-size:12px;color:#fff;font-family:inherit}
+.searchbox{width:100%;background:#fff;border:1px solid var(--border2);border-radius:7px;padding:6px 10px 6px 28px;font-size:12px;color:var(--ink);font-family:inherit}
 .searchbox::placeholder{color:var(--n5)}
 .searchwrap svg{position:absolute;left:8px;top:50%;transform:translateY(-50%);pointer-events:none}
 
@@ -191,8 +192,8 @@ table.ptable{width:100%;border-collapse:collapse;min-width:720px}
 
 /* real "Bet {Book}" CTA inside the Market Read card -- only rendered when
    BOOK_URL has a real homepage for the best-priced book on this player */
-.betcta{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;padding:10px 12px;border-radius:9px;font-family:var(--font-data);font-weight:700;font-size:12px;text-decoration:none;background:var(--turf);color:#001428}
-.betcta:hover{background:#1dffa0}
+.betcta{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;padding:10px 12px;border-radius:9px;font-family:var(--font-data);font-weight:700;font-size:12px;text-decoration:none;background:var(--turf);color:#fff}
+.betcta:hover{background:#006F32}
 
 /* pulsing "live" dot in the header badge -- respects reduced-motion so the
    infinite animation doesn't run for users who've asked for less motion */
@@ -204,7 +205,7 @@ table.ptable{width:100%;border-collapse:collapse;min-width:720px}
 
 /* table column hide on narrow screens, scroll affordance */
 .tablewrap{position:relative}
-.tablewrap::after{content:'';position:absolute;top:0;right:0;bottom:0;width:22px;background:linear-gradient(90deg,transparent,var(--card));pointer-events:none}
+.tablewrap::after{content:'';position:absolute;top:0;right:0;bottom:0;width:22px;background:linear-gradient(90deg,transparent,#fff);pointer-events:none}
 @media (max-width:480px){
   .rank{display:none}
   .avatar.sm{display:none}
@@ -239,12 +240,12 @@ html.emb .stickywrap{position:static}
 .starbtn:not(.abs){position:relative}
 .starbtn::after{content:'';position:absolute;inset:-9px}
 .showmore{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:14px 16px 4px}
-.showmore button{font-family:var(--font-data);font-size:12px;font-weight:600;letter-spacing:.02em;padding:12px 18px;min-height:44px;border-radius:999px;border:1px solid var(--border2);background:#001428;color:var(--n3);cursor:pointer}
+.showmore button{font-family:var(--font-data);font-size:12px;font-weight:600;letter-spacing:.02em;padding:12px 18px;min-height:44px;border-radius:999px;border:1px solid var(--border2);background:#fff;color:var(--n3);cursor:pointer}
 .showmore button.primary{background:var(--red);border-color:var(--red);color:#fff}
 .showmore button:hover{border-color:var(--n5)}
 .showcount{text-align:center;font-family:var(--font-data);font-size:11px;color:var(--n5);padding:6px 16px 0}
 .cta{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:14px 16px 6px;padding:13px 15px;border:1px solid var(--border2);border-radius:12px;background:linear-gradient(90deg,rgba(242,46,69,.14),rgba(242,46,69,.03))}
-.cta b{display:block;color:#fff;font-size:13.5px;margin-bottom:2px}
+.cta b{display:block;color:var(--ink);font-size:13.5px;margin-bottom:2px}
 .cta span{color:var(--n3);font-size:12px;line-height:1.4}
 .cta a{flex-shrink:0;background:var(--red);color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:11px 16px;min-height:44px;display:inline-flex;align-items:center;border-radius:999px}
 .cta a:hover{background:#F55368;color:#fff}
@@ -326,13 +327,13 @@ try{ document.title = "Break the Plane — Week " + DATA.week; }catch(e){}
 // not the whole streak feature.
 var IS_SEASON_OPENER = (DATA.week === 1);
 
-var C = {red:'#F22E45',turf:'#00E657',teal:'#00D4AA',gold:'#F5A623',volt:'#BAED00',ketchup:'#FF4537',n3:'#A9BDD2',n4:'#7B94AF',n5:'#4F6E8F',n6:'#2A4E74',n8:'#04203C'};
-var POSC = {RB:C.turf,WR:C.teal,TE:C.gold,FB:C.turf,QB:'#F55368'};
+var C = {red:'#D91F3A',turf:'#00873D',teal:'#00806A',gold:'#B36B00',volt:'#5C7A00',ketchup:'#D6332A',n3:'#3E5671',n4:'#5F7690',n5:'#8396AB',n6:'#C9D3DE',n8:'#E6ECF2'};
+var POSC = {RB:C.turf,WR:C.teal,TE:C.gold,FB:C.turf,QB:'#D91F3A'};
 // Deliberately a DIFFERENT palette than POSC (position colors) -- these used to
 // share C.turf/C.teal/C.gold with position badges, so a green pill meant "RB"
 // in one spot and "great matchup" three inches away. This is its own ordered
 // heat ramp (good matchup -> bad matchup for the offense), no overlap with POSC.
-var DEFCOLOR = {Worst:'#8ED14F', Fair:'#FFD23F', Tough:'#FF9F40', Elite:C.ketchup}; // tier is FROM THE OFFENSE'S vantage: "Worst" defense = best matchup
+var DEFCOLOR = {Worst:'#4C8A12', Fair:'#A67C00', Tough:'#C75A00', Elite:C.ketchup}; // tier is FROM THE OFFENSE'S vantage: "Worst" defense = best matchup
 var root = document.getElementById('btp');
 
 // Research filters -- every test below reads a real, walk-forward-computed
@@ -611,7 +612,7 @@ function outcomeChip(p){
     return p.kickoff ? '<span class="hit" style="color:'+C.n3+';background:'+C.n8+'">'+esc(p.kickoff)+'</span>' : '';
   }
   return p.actual_any_td
-    ? '<span class="hit" style="color:#001428;background:'+C.turf+'">HIT</span>'
+    ? '<span class="hit" style="color:#fff;background:'+C.turf+'">HIT</span>'
     : '<span class="hit" style="color:'+C.n4+';background:'+C.n8+'">MISS</span>';
 }
 function oddsSummaryHtml(p){
@@ -652,11 +653,11 @@ function gauge(p,size){
     '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+C.n8+'" stroke-width="'+sw+'"/>'+
     '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+g[1]+'" stroke-width="'+sw+'" stroke-linecap="round" stroke-dasharray="'+(frac*circ)+' '+circ+'"/>'+
     '</svg><div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">'+
-    '<b style="font-family:var(--font-display);font-weight:400;font-size:'+size*.23+'px;line-height:.9;color:#fff">'+pct(p.p_final)+'</b>'+
+    '<b style="font-family:var(--font-display);font-weight:400;font-size:'+size*.23+'px;line-height:.9;color:var(--ink)">'+pct(p.p_final)+'</b>'+
     '<span style="font-family:var(--font-data);font-size:'+Math.max(9,Math.round(size*.075))+'px;letter-spacing:.06em;text-transform:uppercase;color:'+g[1]+';margin-top:3px">anytime TD</span></div></div>';
 }
 function bar(label,disp,frac,color){
-  return '<div><div style="display:flex;justify-content:space-between;font-size:10.5px;color:'+C.n4+';margin-bottom:4px"><span>'+label+'</span><b style="color:#fff;font-family:var(--font-data);font-weight:600">'+disp+'</b></div>'+
+  return '<div><div style="display:flex;justify-content:space-between;font-size:10.5px;color:'+C.n4+';margin-bottom:4px"><span>'+label+'</span><b style="color:var(--ink);font-family:var(--font-data);font-weight:600">'+disp+'</b></div>'+
     '<div style="height:5px;border-radius:999px;background:'+C.n8+';overflow:hidden"><div style="width:'+clamp(frac*100,0,100)+'%;height:100%;border-radius:999px;background:'+color+'"></div></div></div>';
 }
 function calibNote(p){
@@ -702,20 +703,20 @@ function newsHtml(p){
   // ever been run), so this never renders broken/empty when the data is missing.
   if(!p.rotowireUrl) return '';
   if(!p.newsHeadline){
-    return '<a href="'+p.rotowireUrl+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;text-decoration:none;background:linear-gradient(90deg,rgba(242,46,69,.10),#001428);border:1px solid '+C.n6+';border-radius:9px;padding:10px 12px">'+
+    return '<a href="'+p.rotowireUrl+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;text-decoration:none;background:linear-gradient(90deg,rgba(242,46,69,.10),#fff);border:1px solid '+C.n6+';border-radius:9px;padding:10px 12px">'+
       '<span style="width:30px;height:30px;border-radius:7px;background:'+C.red+'22;border:1px solid '+C.red+'55;display:grid;place-items:center;flex-shrink:0">'+
         '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="'+C.red+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M21 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h5"/></svg>'+
       '</span>'+
       '<span style="flex:1;min-width:0">'+
         '<span style="display:block;font-family:var(--font-data);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:'+C.n5+'">RotoWire</span>'+
-        '<span style="display:block;font-weight:600;font-size:12.5px;color:#fff">Latest news &amp; player page</span>'+
+        '<span style="display:block;font-weight:600;font-size:12.5px;color:var(--ink)">Latest news &amp; player page</span>'+
       '</span>'+
       '<span style="color:'+C.n5+';font-size:13px;flex-shrink:0">↗</span>'+
     '</a>';
   }
-  return '<a href="'+p.rotowireUrl+'" target="_blank" rel="noopener" style="display:block;text-decoration:none;background:linear-gradient(90deg,rgba(242,46,69,.10),#001428);border:1px solid '+C.n6+';border-radius:9px;padding:12px 13px">'+
+  return '<a href="'+p.rotowireUrl+'" target="_blank" rel="noopener" style="display:block;text-decoration:none;background:linear-gradient(90deg,rgba(242,46,69,.10),#fff);border:1px solid '+C.n6+';border-radius:9px;padding:12px 13px">'+
     '<span style="display:block;font-family:var(--font-data);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:'+C.n5+';margin-bottom:6px">RotoWire'+(p.newsDate?' · '+esc(p.newsDate):'')+'</span>'+
-    '<span style="display:block;font-weight:700;font-size:13.5px;color:#fff;line-height:1.32;margin-bottom:4px">'+esc(p.newsHeadline)+'</span>'+
+    '<span style="display:block;font-weight:700;font-size:13.5px;color:var(--ink);line-height:1.32;margin-bottom:4px">'+esc(p.newsHeadline)+'</span>'+
     (p.newsExcerpt?'<span style="display:block;font-size:11.5px;color:'+C.n3+';line-height:1.55">'+esc(p.newsExcerpt)+'</span>':'')+
     '<span style="display:inline-flex;align-items:center;gap:4px;margin-top:9px;font-size:10.5px;font-weight:700;color:'+C.red+'">Read full story <span style="color:'+C.n5+'">↗</span></span>'+
   '</a>';
@@ -764,8 +765,8 @@ function detail(p){
         '</div>';
       })()
     : '<div class="rcard"><div class="dlbl">Backtested Calibration <span style="font-weight:400;text-transform:none;letter-spacing:0">(no market odds matched)</span></div>'+
-      '<div class="calib-box" style="background:rgba(0,212,170,.08);border-color:rgba(0,212,170,.3)">'+
-        '<div style="flex:1"><b style="font-family:var(--font-display);font-size:20px;color:#fff">'+pct(p.p_final)+'</b> <span style="font-size:11.5px;color:'+C.n3+'">model probability</span>'+
+      '<div class="calib-box" style="background:rgba(0,128,106,.07);border-color:rgba(0,128,106,.3)">'+
+        '<div style="flex:1"><b style="font-family:var(--font-display);font-size:20px;color:var(--ink)">'+pct(p.p_final)+'</b> <span style="font-size:11.5px;color:'+C.n3+'">model probability</span>'+
         '<div style="font-size:11px;color:'+C.n4+';margin-top:4px">'+calibNote(p)+'.</div></div></div>'+
       '</div>';
 
@@ -829,7 +830,7 @@ function detail(p){
   // before (defHtml + alignMatchupHtml nested under the alignment bars).
   var matchupHtml = (p.def_tier==null && !p.alignMatchup) ? '' :
     '<div class="rcard"><div class="dlbl">Matchup Read</div>'+
-      (p.def_tier==null ? '' : '<div style="font-size:12px;color:'+C.n3+';line-height:1.6">'+esc(p.opp)+' has allowed <b style="color:#fff">'+p.def_tds_allowed+'</b> TDs/game over their last 4 (trailing) · #'+p.def_rank+' most in the league · <b style="color:'+(DEFCOLOR[p.def_tier])+'">'+p.def_tier+'</b> defense</div>')+
+      (p.def_tier==null ? '' : '<div style="font-size:12px;color:'+C.n3+';line-height:1.6">'+esc(p.opp)+' has allowed <b style="color:var(--ink)">'+p.def_tds_allowed+'</b> TDs/game over their last 4 (trailing) · #'+p.def_rank+' most in the league · <b style="color:'+(DEFCOLOR[p.def_tier])+'">'+p.def_tier+'</b> defense</div>')+
       alignMatchupHtml(p)+
     '</div>';
   // Passing Matchup Profile: the player's own highest-volume target zone
@@ -846,7 +847,7 @@ function detail(p){
     var edgeColor = pm.oppYptVsLeague>=0.5 ? C.turf : pm.oppYptVsLeague<=-0.5 ? C.n4 : C.n3;
     var sign = pm.oppYptVsLeague>=0 ? '+' : '';
     return head+
-      '<div style="font-size:11.5px;color:'+C.n3+';line-height:1.6;margin-bottom:9px">Signature zone: <b style="color:#fff">'+pm.zoneLabel+'</b> ('+pm.playerTargets+' targets, trailing) — '+esc(pm.opponent)+' allows <b style="color:'+edgeColor+'">'+sign+pm.oppYptVsLeague.toFixed(2)+' YPT</b> vs. league there'+(pm.smallSample?' <span style="color:'+C.n5+'">(small sample)</span>':'')+'</div>'+
+      '<div style="font-size:11.5px;color:'+C.n3+';line-height:1.6;margin-bottom:9px">Signature zone: <b style="color:var(--ink)">'+pm.zoneLabel+'</b> ('+pm.playerTargets+' targets, trailing) — '+esc(pm.opponent)+' allows <b style="color:'+edgeColor+'">'+sign+pm.oppYptVsLeague.toFixed(2)+' YPT</b> vs. league there'+(pm.smallSample?' <span style="color:'+C.n5+'">(small sample)</span>':'')+'</div>'+
       '<div style="display:grid;gap:8px">'+
         bar('His '+pm.zoneLabel+' YPT', pm.playerYpt.toFixed(1), clamp(pm.playerYpt/12,0,1), C.teal)+
         bar(pm.opponent+' allows (YPT)', pm.oppYptAllowed.toFixed(1), clamp(pm.oppYptAllowed/12,0,1), edgeColor)+
@@ -864,7 +865,7 @@ function detail(p){
       '</div></div>';
   var bumpHtml = !p.roleBump ? '' :
     '<div class="rcard"><div class="dlbl">Next Man Up</div><div style="font-size:11.5px;color:'+C.n3+';background:'+C.gold+'14;border:1px solid '+C.gold+'40;border-radius:8px;padding:10px 12px">'+
-      'In for <b style="color:#fff">'+esc(p.roleBump.outName)+'</b> ('+esc(p.roleBump.outInjury||'')+', '+esc(p.roleBump.outStatus)+') · '+
+      'In for <b style="color:var(--ink)">'+esc(p.roleBump.outName)+'</b> ('+esc(p.roleBump.outInjury||'')+', '+esc(p.roleBump.outStatus)+') · '+
       'target share +'+(p.roleBump.targetShareBump?Math.round(p.roleBump.targetShareBump*100):0)+'pt, rush share +'+(p.roleBump.rushShareBump?Math.round(p.roleBump.rushShareBump*100):0)+'pt'+
     '</div></div>';
   var dueHtml = (p.games_since_td==null || (p.games_since_td===0 && IS_SEASON_OPENER)) ? '' :
@@ -906,7 +907,7 @@ function tableView(list){
     return '<tr class="prow" data-toggle="'+p.id+'">'+
       '<td>'+starBtn(p)+'</td>'+
       '<td style="font-family:var(--font-display);color:'+C.n6+'">'+p.rank+'</td>'+
-      '<td><span style="display:flex;align-items:center;gap:8px">'+avatar(p,26)+'<span><b style="color:#fff;font-size:12.5px">'+esc(p.name)+'</b><span style="display:block;font-size:10px;color:'+C.n5+';font-family:var(--font-data)">'+p.pos+' · '+esc(p.team)+'</span></span></span></td>'+
+      '<td><span style="display:flex;align-items:center;gap:8px">'+avatar(p,26)+'<span><b style="color:var(--ink);font-size:12.5px">'+esc(p.name)+'</b><span style="display:block;font-size:10px;color:'+C.n5+';font-family:var(--font-data)">'+p.pos+' · '+esc(p.team)+'</span></span></span></td>'+
       '<td>'+(p.isHome?'vs':'@')+' '+esc(p.opp)+(p.total!=null?' · O/U '+p.total:'')+'</td>'+
       '<td style="text-align:right;font-family:var(--font-display);color:'+g[1]+'">'+pct(p.p_final)+'</td>'+
       '<td>'+gradePill(p.p_final)+edgeBadge(p)+'</td>'+
@@ -960,7 +961,7 @@ function gameView(list){
           // Truncates instead of wrapping -- a long name wrapping to 2-3 lines used
           // to visually collide with the kickoff chip that sits right after it,
           // since .gamerow's own height is only sized for one line of text.
-          '<b class="gamerow-name" style="color:#fff;font-size:13px;flex:1;min-width:0;padding-right:30px">'+esc(p.name)+'</b>'+
+          '<b class="gamerow-name" style="color:var(--ink);font-size:13px;flex:1;min-width:0;padding-right:30px">'+esc(p.name)+'</b>'+
           '<span class="gamerow-kickoff">'+outcomeChip(p)+'</span>'+
           '<span class="caret">'+(open?'▲':'▼')+'</span></button>'+
           starBtn(p,true)+
