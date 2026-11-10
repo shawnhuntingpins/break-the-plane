@@ -1,4 +1,6 @@
-<title>Break the Plane — Week 1</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Break the Plane — Anytime TD Scorer</title>
 <link rel="icon" type="image/png" sizes="32x32" href="brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="brand/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="brand/apple-touch-icon.png">
@@ -228,6 +230,60 @@ table.ptable{width:100%;border-collapse:collapse;min-width:720px}
      the width where the row is tightest -- drop it and let the name column breathe. */
   .gamerow-kickoff{display:none}
 }
+
+/* ===== UX pass: embedded look, mobile-first, top-10 list ===== */
+html.emb,html.emb body{background:transparent}
+html.emb body{padding:0}
+html.emb .wrap{max-width:none}
+html.emb .stickywrap{position:static}
+.starbtn:not(.abs){position:relative}
+.starbtn::after{content:'';position:absolute;inset:-9px}
+.showmore{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:14px 16px 4px}
+.showmore button{font-family:var(--font-data);font-size:12px;font-weight:600;letter-spacing:.02em;padding:12px 18px;min-height:44px;border-radius:999px;border:1px solid var(--border2);background:#001428;color:var(--n3);cursor:pointer}
+.showmore button.primary{background:var(--red);border-color:var(--red);color:#fff}
+.showmore button:hover{border-color:var(--n5)}
+.showcount{text-align:center;font-family:var(--font-data);font-size:11px;color:var(--n5);padding:6px 16px 0}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:14px 16px 6px;padding:13px 15px;border:1px solid var(--border2);border-radius:12px;background:linear-gradient(90deg,rgba(242,46,69,.14),rgba(242,46,69,.03))}
+.cta b{display:block;color:#fff;font-size:13.5px;margin-bottom:2px}
+.cta span{color:var(--n3);font-size:12px;line-height:1.4}
+.cta a{flex-shrink:0;background:var(--red);color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:11px 16px;min-height:44px;display:inline-flex;align-items:center;border-radius:999px}
+.cta a:hover{background:#F55368;color:#fff}
+@media (max-width:600px){
+  .stickywrap{position:static}
+  .head{padding:11px 12px;flex-wrap:nowrap}
+  .badges{gap:5px}
+  .badge{font-size:9.5px;padding:4px 7px}
+  .hero{padding:13px 12px 12px}
+  .eyebrow{margin-bottom:7px;font-size:10px}
+  .hero-row{gap:10px;flex-wrap:nowrap}
+  .hero-name{font-size:clamp(19px,6vw,24px)}
+  .signals{margin-top:6px}
+  .signals>*:nth-child(n+4){display:none}
+  .sigrow{padding:0 12px 10px}
+  .sigrow>*:nth-child(n+4){display:none}
+  .hero-gauge{width:auto;margin-top:0}
+  .storyline{padding:8px 12px;font-size:12px}
+  .controls{padding:10px 12px 4px;gap:7px}
+  .searchwrap{order:-1;flex:1 1 100%}
+  .searchbox{font-size:16px;padding:10px 12px 10px 32px;min-height:44px}
+  .searchwrap svg{left:10px}
+  .seg{display:flex;width:100%}
+  .seg button{flex:1;padding:8px 4px;font-size:12.5px;min-height:38px}
+  .seg.sortseg{overflow-x:auto;scrollbar-width:none}
+  .seg.sortseg button{flex:0 0 auto;padding:10px 12px}
+  .sortlbl{display:none}
+  .count{margin-left:auto;order:1}
+  .gamepickwrap{order:1}
+  .seg.sortseg{order:2}
+  .filterbar{padding:6px 12px 12px}
+  .filterrow{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .fchip,.morefilters{padding:9px 13px;min-height:38px}
+  .fchip.watch{margin-left:0}
+  .caret{padding:10px 6px;font-size:13px}
+  .foot{padding-left:12px;padding-right:12px}
+  .cta{margin:12px 12px 4px}
+  .cta a{width:100%;justify-content:center}
+}
 </style>
 
 <div class="wrap">
@@ -402,7 +458,14 @@ function saveWatchlist(){
 }
 
 var state = {pos:'All', sort:'rank', view:'board', expanded:null, filters:new Set(), onlyWatch:false,
-  watchlist:loadWatchlist(), search:'', filtersExpanded:false, game:'All', gamePickerOpen:false};
+  watchlist:loadWatchlist(), search:'', filtersExpanded:false, game:'All', gamePickerOpen:false, limit:10, _fk:''};
+var PAGE_SIZE=10;
+function isMobile(){ return window.innerWidth<=600; }
+var _wasMobile=isMobile();
+window.addEventListener('resize',function(){ var m=isMobile(); if(m!==_wasMobile){ _wasMobile=m; if(typeof update==='function') update(); } });
+// Where the 'full board' strip sends people; the utm tags make the embed visible as its own source in GA4.
+var CTA_URL='https://www.rotowire.com/subscribe/?utm_source=break-the-plane&utm_medium=embed&utm_campaign=btp-cta';
+if(window.parent!==window){ document.documentElement.classList.add('emb'); }
 
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
@@ -952,9 +1015,14 @@ function render(){
   });
   else if(state.sort==='rz') list=list.slice().sort(function(a,b){return (b.rz_share||0)-(a.rz_share||0);});
   else list=list.slice().sort(function(a,b){return a.rank-b.rank;});
+  var fk=[state.pos,state.game,state.sort,state.view,Array.from(state.filters).join(','),state.onlyWatch].join('|');
+  if(fk!==state._fk){ state._fk=fk; state.limit=PAGE_SIZE; }
+  var total=list.length;
+  var limited = state.view!=='game' && !state.search && total>state.limit;
+  var shownList = limited ? list.slice(0,state.limit) : list;
   var hero=DATA.players[0];
   var heroHtml='<div class="hero"><div class="eyebrow">★ Top Projection, This Slate</div>'+
-    '<div class="hero-row">'+avatar(hero,74)+
+    '<div class="hero-row">'+avatar(hero,isMobile()?52:74)+
     '<span style="min-width:0;flex:1"><span style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:6px">'+
     '<span style="font-family:var(--font-display);font-size:12px;color:'+C.n5+'">#1</span>'+teamChip(hero.team)+posBadge(hero.pos)+gradePill(hero.p_final)+'</span>'+
     '<span class="hero-name" style="display:block">'+esc(hero.name)+'</span>'+
@@ -964,7 +1032,7 @@ function render(){
     // them in one span makes them wrap together as a single unit, never split.
     '<span class="meta" style="margin-top:6px">'+(hero.isHome?'vs':'@')+' '+esc(hero.opp)+' <span>O/U '+hero.total+' <span style="color:'+C.n6+'">·</span> '+(hero.kickoff?esc(hero.kickoff):'Kickoff TBD')+'</span></span>'+
     '<span class="signals">'+defTierChip(hero)+envChip(hero)+dueChip(hero)+hotChip(hero)+'</span></span>'+
-    '<div class="hero-gauge">'+gauge(hero,116)+'</div></div></div>';
+    '<div class="hero-gauge">'+gauge(hero,isMobile()?84:116)+'</div></div></div>';
   // A second, different kind of story below the hero -- the hero always leads
   // with the same "obvious workhorse" pick, so this surfaces whatever else is
   // most notable this week (a big market disagreement, or a role-bump story)
@@ -980,7 +1048,7 @@ function render(){
     return '<div class="storyline"><span class="storytag">⬆ Role Bump Watch</span>'+
       '<span class="storyname">'+esc(sp.name)+'</span><span class="storynote">projected up with '+esc(sp.roleBump.outName)+' out ('+esc(sp.roleBump.outStatus)+')</span></div>';
   })();
-  var seg=function(opts,cur,attr){return '<span class="seg">'+opts.map(function(o){
+  var seg=function(opts,cur,attr,cls){return '<span class="seg'+(cls?' '+cls:'')+'">'+opts.map(function(o){
     return '<button data-'+attr+'="'+o[0]+'" class="'+(o[0]===cur?'on':'')+'">'+o[1]+'</button>';}).join('')+'</span>';};
   var searchHtml = '<span class="searchwrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="'+C.n5+'" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.35-4.35"/></svg>'+
     '<input class="searchbox" id="searchInput" type="text" placeholder="Find a player…" value="'+esc(state.search)+'" aria-label="Search players by name or team" /></span>';
@@ -1012,15 +1080,25 @@ function render(){
     seg([['board','Big Board'],['table','Table'],['game','By Game']],state.view,'view')+
     seg([['All','All'],['RB','RB'],['WR','WR'],['TE','TE'],['QB','QB']],state.pos,'pos')+
     gamePickHtml+
-    (state.view!=='game'?'<span class="sortlbl">Sort</span>'+seg([['rank','Model'],['edge','Edge'],['tds','TDs'],['odds','Odds'],['rz','RZ'],['due','Due']],state.sort,'sort'):'')+
+    (state.view!=='game'?'<span class="sortlbl">Sort</span>'+seg([['rank','Model'],['edge','Edge'],['tds','TDs'],['odds','Odds'],['rz','RZ'],['due','Due']],state.sort,'sort','sortseg'):'')+
     searchHtml+
     '<span class="count">'+list.length+' players</span></div>';
   var main = list.length===0
     ? '<div class="empty">No players match these filters right now — try clearing one above.</div>'
-    : (state.view==='table' ? tableView(list) : state.view==='game' ? '<div style="padding-top:10px">'+gameView(list)+'</div>' : '<div class="list">'+list.map(card).join('')+'</div>');
+    : (state.view==='table' ? tableView(shownList) : state.view==='game' ? '<div style="padding-top:10px">'+gameView(list)+'</div>' : '<div class="list">'+shownList.map(card).join('')+'</div>');
+  var moreHtml = '';
+  if(limited){
+    var nxt=Math.min(PAGE_SIZE,total-state.limit);
+    moreHtml='<div class="showcount">Showing top '+state.limit+' of '+total+'</div><div class="showmore"><button class="primary" data-more="next">Show '+nxt+' more</button>'+
+      (total-state.limit>PAGE_SIZE?'<button data-more="all">Show all '+total+'</button>':'')+'</div>';
+  } else if(state.view!=='game' && total>PAGE_SIZE && !state.search){
+    moreHtml='<div class="showcount">Showing all '+total+'</div><div class="showmore"><button data-more="less">Back to top 10</button></div>';
+  }
+  var ctaHtml = (list.length && CTA_URL) ? '<div class="cta"><span><b>Want more than the top picks?</b>RotoWire\'s full NFL toolkit: projections, news and betting research.</span>'+
+    '<a href="'+CTA_URL+'" target="_blank" rel="noopener">Explore RotoWire</a></div>' : '';
   var foot='<div class="foot">Break the Plane · Research &amp; entertainment tool — not financial or betting advice.<br>'+
     'Gambling problem? Call/text <a href="tel:18004262537">1-800-GAMBLER</a>. Must be 21+ and in an eligible state to wager.</div>';
-  root.innerHTML = '<div>'+head+heroHtml+storylineHtml+'<div class="stickywrap">'+controls+filterBar()+'</div>'+main+foot+'</div>';
+  root.innerHTML = '<div>'+head+heroHtml+storylineHtml+'<div class="stickywrap">'+controls+filterBar()+'</div>'+main+moreHtml+ctaHtml+foot+'</div>';
 }
 // CMS/iframe embedding: when this page is loaded inside an iframe (e.g. a
 // RotoWire CMS article), the parent frame has no way to know how tall our
@@ -1070,6 +1148,11 @@ root.addEventListener('click', function(ev){
     if(el.dataset && el.dataset.filter){
       var k=el.dataset.filter;
       if(state.filters.has(k)) state.filters.delete(k); else state.filters.add(k);
+      update(); return;
+    }
+    if(el.dataset && el.dataset.more){
+      var m=el.dataset.more;
+      state.limit = m==='all' ? 99999 : m==='less' ? PAGE_SIZE : state.limit+PAGE_SIZE;
       update(); return;
     }
     if(el.dataset && el.dataset.onlywatch){ state.onlyWatch=!state.onlyWatch; update(); return; }
