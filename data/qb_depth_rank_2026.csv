@@ -1,7 +1,7 @@
 team,gsis_id,player_name,pos_rank
-ARI,00-0035289,Gardner Minshew II,1
-ARI,00-0041561,Carson Beck,2
-ARI,00-0026300,Josh Johnson,3
+ARI,00-0041561,Carson Beck,1
+ARI,00-0026300,Josh Johnson,2
+ARI,00-0041203,Joey Aguilar,3
 ATL,00-0039917,Michael Penix Jr.,1
 ATL,00-0036212,Tua Tagovailoa,2
 ATL,00-0027973,Andy Dalton,3
@@ -47,14 +47,13 @@ LA,00-0041568,Ty Simpson,3
 LAC,00-0036355,Justin Herbert,1
 LAC,00-0040464,DJ Uiagalelei,2
 LAC,00-0037012,Trey Lance,3
-LV,00-0029604,Kirk Cousins,1
-LV,00-0041562,Fernando Mendoza,2
-LV,00-0038579,Aidan O'Connell,3
-MIA,00-0038128,Malik Willis,1
-MIA,00-0040014,Kyle McCord,2
-MIN,00-0035228,Kyler Murray,1
-MIN,00-0032950,Carson Wentz,2
-MIN,00-0040494,Max Brosmer,3
+LV,00-0041562,Fernando Mendoza,1
+LV,00-0038579,Aidan O'Connell,2
+MIA,00-0040014,Kyle McCord,1
+MIA,00-0038128,Malik Willis,2
+MIN,00-0029604,Kirk Cousins,1
+MIN,00-0035228,Kyler Murray,2
+MIN,00-0032950,Carson Wentz,3
 NE,00-0039851,Drake Maye,1
 NE,00-0038476,Tommy DeVito,2
 NE,00-0041123,Behren Morton,3
@@ -80,6 +79,7 @@ SF,00-0036972,Mac Jones,2
 SF,00-0040589,Kurtis Rourke,3
 TB,00-0034855,Baker Mayfield,1
 TB,00-0041251,Jalon Daniels,2
+TB,00-0035282,Easton Stick,3
 TEN,00-0040676,Cam Ward,1
 TEN,00-0033869,Mitchell Trubisky,2
 WAS,00-0039910,Jayden Daniels,1
